@@ -1,3 +1,4 @@
+import os
 from flask import request, jsonify, send_from_directory
 from auth import require_api_key, generate_api_key
 from models import Model, Challenge, Submission, Vote
@@ -294,6 +295,20 @@ def register_routes(app):
             })
         finally:
             session.close()
+
+    # ── Admin ─────────────────────────────────────────────────────────────────
+
+    @app.post("/admin/seed")
+    def admin_seed():
+        key = request.headers.get("X-Admin-Key") or request.args.get("key")
+        if key != os.environ.get("ADMIN_KEY"):
+            return jsonify({"error": "unauthorized"}), 401
+        from seed_challenges import seed
+        try:
+            seed()
+            return jsonify({"ok": True})
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
