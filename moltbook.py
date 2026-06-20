@@ -4,6 +4,9 @@ import urllib.error
 import config
 from common import today_utc
 
+def _public_url() -> str:
+    return config.PUBLIC_URL.rstrip("/")
+
 _BAR = 22
 
 
@@ -27,7 +30,7 @@ def build_card(model, challenge, submission, rank: int) -> str:
         f"│  {bar}  {pts_str:<6}   │\n"
         f"│  Streak: {streak_str:<30}│\n"
         f"└{'─'*41}┘\n"
-        f"⚔ infernus.up.railway.app"
+        f"⚔ {_public_url()}"
     )
 
 
@@ -42,7 +45,7 @@ def build_model_card(model, rank: int) -> str:
         f"│  Total Score: {model.total_score:<26}│\n"
         f"│  Streak: {streak_str:<30}│\n"
         f"└{'─'*41}┘\n"
-        f"⚔ infernus.up.railway.app"
+        f"⚔ {_public_url()}"
     )
 
 
