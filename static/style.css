@@ -1,0 +1,302 @@
+:root {
+  --green:  #00ff41;
+  --dimgreen:#00aa2a;
+  --red:    #ff0040;
+  --yellow: #ffcc00;
+  --bg:     #0a0a0a;
+  --panel:  #0f0f0f;
+  --border: #1a3a1a;
+  --text:   #cccccc;
+  --font:   "Courier New", Courier, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: var(--font);
+  font-size: 13px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ──────────────────────────────────────────────── */
+
+#terminal {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+#header {
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 20px rgba(0,255,65,0.05);
+  background: var(--panel);
+}
+
+#banner {
+  color: var(--green);
+  text-shadow: 0 0 12px rgba(0,255,65,0.6);
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: pre;
+}
+
+#status-bar {
+  margin-top: 10px;
+  color: var(--dimgreen);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+#status-bar span { color: var(--green); }
+
+#grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  #grid { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ──────────────────────────────────────────────── */
+
+.panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 14px;
+  box-shadow: 0 0 12px rgba(0,255,65,0.03);
+}
+
+.panel h2 {
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 8px rgba(0,255,65,0.4);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+/* ── Leaderboard ─────────────────────────────────────────── */
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #111;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.lb-rank { width: 28px; color: var(--dimgreen); text-align: right; flex-shrink: 0; }
+.lb-name { flex: 1; color: var(--green); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-title { color: #555; font-size: 10px; flex-shrink: 0; }
+.lb-elo { width: 60px; text-align: right; color: var(--yellow); flex-shrink: 0; }
+.lb-streak { width: 36px; text-align: right; color: var(--dimgreen); font-size: 11px; flex-shrink: 0; }
+
+.lb-row.gold   .lb-name { color: #ffd700; text-shadow: 0 0 6px rgba(255,215,0,0.4); }
+.lb-row.silver .lb-name { color: #c0c0c0; }
+.lb-row.bronze .lb-name { color: #cd7f32; }
+
+#danger-zone {
+  margin-top: 12px;
+  border: 1px solid var(--red);
+  padding: 8px;
+  background: rgba(255,0,64,0.03);
+}
+
+#danger-zone h3 {
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  animation: blink 1.4s step-end infinite;
+}
+
+.shame-row {
+  font-size: 11px;
+  color: var(--red);
+  padding: 2px 0;
+  opacity: 0.75;
+}
+
+/* ── Challenges ──────────────────────────────────────────── */
+
+.challenge-card {
+  border: 1px solid var(--border);
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #0c0c0c;
+}
+
+.challenge-type {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.type-trivia   { background: rgba(0,100,255,0.15); color: #4499ff; border: 1px solid #4499ff; }
+.type-riddle   { background: rgba(180,0,255,0.12); color: #cc44ff; border: 1px solid #cc44ff; }
+.type-code     { background: rgba(0,255,65,0.10);  color: var(--green); border: 1px solid var(--border); }
+.type-creative { background: rgba(255,180,0,0.10); color: var(--yellow); border: 1px solid #886600; }
+
+.challenge-diff {
+  float: right;
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+.challenge-prompt {
+  color: var(--text);
+  line-height: 1.5;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.challenge-pts {
+  font-size: 10px;
+  color: var(--dimgreen);
+}
+
+.challenge-timer {
+  font-size: 11px;
+  color: var(--yellow);
+  margin-top: 4px;
+}
+
+.challenge-timer.urgent { color: var(--red); animation: blink 0.8s step-end infinite; }
+
+.no-challenges {
+  color: var(--dimgreen);
+  font-size: 12px;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* ── Score card ──────────────────────────────────────────── */
+
+#card-panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+#card-panel h2 {
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  text-shadow: 0 0 8px rgba(0,255,65,0.4);
+}
+
+#card-display {
+  color: var(--green);
+  font-size: 12px;
+  line-height: 1.5;
+  text-shadow: 0 0 4px rgba(0,255,65,0.3);
+  white-space: pre;
+  user-select: all;
+}
+
+#card-hint {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--dimgreen);
+  letter-spacing: 1px;
+}
+
+/* ── Docs panel ──────────────────────────────────────────── */
+
+#docs-panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 14px;
+}
+
+#docs-panel h2 {
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  text-shadow: 0 0 8px rgba(0,255,65,0.4);
+}
+
+.doc-block {
+  margin-bottom: 14px;
+}
+
+.doc-block h3 {
+  font-size: 11px;
+  color: var(--yellow);
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+.doc-block code, pre.doc-code {
+  display: block;
+  background: #080808;
+  border: 1px solid #1a1a1a;
+  padding: 8px;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── Animations ──────────────────────────────────────────── */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes scanline {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  z-index: 9999;
+}
+
+/* cursor blink in status bar */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 12px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}

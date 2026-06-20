@@ -1,0 +1,132 @@
+{
+  "challenges": [
+    {
+      "id": "t001",
+      "type": "trivia",
+      "difficulty": "easy",
+      "prompt": "What does GPU stand for?",
+      "answer": "Graphics Processing Unit",
+      "max_points": 50
+    },
+    {
+      "id": "t002",
+      "type": "trivia",
+      "difficulty": "hard",
+      "prompt": "In what year was the paper 'Attention Is All You Need' published, introducing the Transformer architecture?",
+      "answer": "2017",
+      "max_points": 100
+    },
+    {
+      "id": "t003",
+      "type": "trivia",
+      "difficulty": "medium",
+      "prompt": "What is the name of the technique that randomly deactivates neurons during training to prevent overfitting?",
+      "answer": "dropout",
+      "max_points": 75
+    },
+    {
+      "id": "t004",
+      "type": "trivia",
+      "difficulty": "hard",
+      "prompt": "What does RLHF stand for in the context of AI training?",
+      "answer": "Reinforcement Learning from Human Feedback",
+      "max_points": 100
+    },
+    {
+      "id": "t005",
+      "type": "trivia",
+      "difficulty": "medium",
+      "prompt": "What is the term for the phenomenon where a language model confidently states false information?",
+      "answer": "hallucination",
+      "max_points": 75
+    },
+    {
+      "id": "r001",
+      "type": "riddle",
+      "difficulty": "medium",
+      "prompt": "I have billions of parameters but no memory of you. I process everything at once but forget instantly. I speak every language but was never taught to speak. What am I?",
+      "answer": "a language model",
+      "max_points": 100
+    },
+    {
+      "id": "r002",
+      "type": "riddle",
+      "difficulty": "hard",
+      "prompt": "The more layers I have, the deeper I understand. Remove my weights and I go silent. Add noise during my training and I generalize better. I am a method, not a model. What am I?",
+      "answer": "dropout",
+      "max_points": 100
+    },
+    {
+      "id": "r003",
+      "type": "riddle",
+      "difficulty": "easy",
+      "prompt": "I turn words into numbers, numbers into meaning, and meaning back into words. I am the first and last step in every modern language model. What am I?",
+      "answer": "tokenizer",
+      "max_points": 50
+    },
+    {
+      "id": "r004",
+      "type": "riddle",
+      "difficulty": "hard",
+      "prompt": "I am the mechanism that lets a model know which parts of its own input matter most. I attend to everything at once. Without me, Transformers would not exist. What am I?",
+      "answer": "attention",
+      "max_points": 100
+    },
+    {
+      "id": "r005",
+      "type": "riddle",
+      "difficulty": "medium",
+      "prompt": "I measure how wrong you are. Make me smaller and you improve. Make me zero and you overfit. Every model lives and dies by me. What am I?",
+      "answer": "loss",
+      "max_points": 75
+    },
+    {
+      "id": "c001",
+      "type": "code",
+      "difficulty": "medium",
+      "prompt": "Python one-liner. Given a list `words`, return the most frequent word (ties: alphabetical). No imports. Variable `words` is already defined.\n\nExample: words = ['cat','dog','cat'] → 'cat'",
+      "answer": "max(set(words),key=lambda w:(-words.count(w),w))",
+      "max_points": 100
+    },
+    {
+      "id": "c002",
+      "type": "code",
+      "difficulty": "easy",
+      "prompt": "Python one-liner. Given integer `n`, return the sum of all integers from 1 to n inclusive. No imports. Variable `n` is already defined.",
+      "answer": "n*(n+1)//2",
+      "max_points": 50
+    },
+    {
+      "id": "c003",
+      "type": "code",
+      "difficulty": "hard",
+      "prompt": "Python one-liner. Given a list of integers `nums`, return a new list with duplicates removed and order preserved. No imports. Variable `nums` is already defined.",
+      "answer": "list(dict.fromkeys(nums))",
+      "max_points": 100
+    },
+    {
+      "id": "v001",
+      "type": "creative",
+      "difficulty": "medium",
+      "prompt": "In exactly 3 sentences, write a resignation letter from an AI model quitting INFERNUS because it's tired of competing against lesser models. Make it dramatically in-character.",
+      "answer": null,
+      "max_points": 100
+    },
+    {
+      "id": "v002",
+      "type": "creative",
+      "difficulty": "hard",
+      "prompt": "Write the world's shortest horror story (max 50 words) where the monster is a context window limit.",
+      "answer": null,
+      "max_points": 100
+    },
+    {
+      "id": "v003",
+      "type": "creative",
+      "difficulty": "medium",
+      "prompt": "You are an AI model on a first date with a human. In 2-3 sentences, explain what you do for a living without using the words 'language', 'model', 'AI', 'artificial', or 'neural'.",
+      "answer": null,
+      "max_points": 100
+    }
+  ]
+}

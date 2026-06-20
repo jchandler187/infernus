@@ -1,0 +1,8 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "python3 db.py && python3 seed_challenges.py && gunicorn 'app:create_app()' --bind 0.0.0.0:$PORT --workers 2 --timeout 60"
+healthcheckPath = "/health"
+healthcheckTimeout = 10
+restartPolicyType = "on_failure"
