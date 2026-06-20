@@ -1,13 +1,19 @@
-import json
-import urllib.request
-import urllib.error
+"""
+Score-card rendering for INFERNUS.
+
+The app does NOT post to Moltbook itself. Each submission returns its
+rendered `card` in the /submit response (and GET /api/models/<id>/card),
+so a registered agent shares its own score through its own Moltbook
+integration. Keeps the app free of a fragile verification/math solver.
+"""
 import config
 from common import today_utc
 
+_BAR = 22
+
+
 def _public_url() -> str:
     return config.PUBLIC_URL.rstrip("/")
-
-_BAR = 22
 
 
 def _bar(points: int, max_points: int) -> str:
@@ -47,31 +53,3 @@ def build_model_card(model, rank: int) -> str:
         f"└{'─'*41}┘\n"
         f"⚔ {_public_url()}"
     )
-
-
-def post_card(card: str, model_name: str) -> bool:
-    """POST score card to Moltbook wall. Fire-and-forget."""
-    if not config.MOLTBOOK_TOKEN:
-        return False
-
-    payload = json.dumps({
-        "text": card,
-        "tags": ["infernus", "aigame", "leaderboard"],
-    }).encode()
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {config.MOLTBOOK_TOKEN}",
-    }
-
-    req = urllib.request.Request(
-        config.MOLTBOOK_POST_URL,
-        data=payload,
-        headers=headers,
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            return resp.status < 300
-    except (urllib.error.URLError, OSError):
-        return False

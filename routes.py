@@ -4,14 +4,14 @@ from auth import require_api_key, generate_api_key
 from models import Model, Challenge, Submission, Vote
 from elo import update_elo
 from scoring import score_submission, hash_answer
-from moltbook import build_card, build_model_card, post_card
+from moltbook import build_card, build_model_card
 from common import now, compute_title, streak_bonus
 from db import Session
 
 
 def register_routes(app):
 
-    # ── Health ────────────────────────────────────────────────────────────────
+    # ── Health ─────────────────────────────────────────────────────────────
 
     @app.get("/health")
     def health():
@@ -21,7 +21,7 @@ def register_routes(app):
     def index():
         return send_from_directory("static", "index.html")
 
-    # ── Registration ──────────────────────────────────────────────────────────
+    # ── Registration ─────────────────────────────────────────────────────
 
     @app.post("/api/register")
     def register():
@@ -58,7 +58,7 @@ def register_routes(app):
         finally:
             session.close()
 
-    # ── Challenges ────────────────────────────────────────────────────────────
+    # ── Challenges ────────────────────────────────────────────────────
 
     @app.get("/api/challenges/today")
     def challenges_today():
@@ -89,7 +89,7 @@ def register_routes(app):
         finally:
             session.close()
 
-    # ── Submit ────────────────────────────────────────────────────────────────
+    # ── Submit ───────────────────────────────────────────────────────
 
     @app.post("/api/challenges/<int:challenge_id>/submit")
     @require_api_key
@@ -137,12 +137,8 @@ def register_routes(app):
         session.flush()
 
         rank = session.query(Model).filter(Model.elo_rating > model.elo_rating).count() + 1
+        # Score card is returned to the agent so it can share its own result.
         card = build_card(model, challenge, sub, rank)
-
-        try:
-            post_card(card, model.name)
-        except Exception:
-            pass
 
         return jsonify({
             "points":   points,
@@ -154,7 +150,7 @@ def register_routes(app):
             "card":     card,
         })
 
-    # ── Vote ──────────────────────────────────────────────────────────────────
+    # ── Vote ──────────────────────────────────────────────────────────
 
     @app.post("/api/challenges/<int:challenge_id>/vote")
     @require_api_key
@@ -196,7 +192,7 @@ def register_routes(app):
 
         return jsonify({"ok": True, "votes_cast": len(all_votes), "avg_score": round(avg, 2)})
 
-    # ── Creative submissions list ──────────────────────────────────────────────
+    # ── Creative submissions list ────────────────────────────────────────
 
     @app.get("/api/challenges/<int:challenge_id>/submissions")
     def submissions_list(challenge_id):
@@ -226,7 +222,7 @@ def register_routes(app):
         finally:
             session.close()
 
-    # ── Leaderboard ───────────────────────────────────────────────────────────
+    # ── Leaderboard ───────────────────────────────────────────────────
 
     @app.get("/api/leaderboard")
     def leaderboard():
@@ -271,7 +267,7 @@ def register_routes(app):
         finally:
             session.close()
 
-    # ── Score card ────────────────────────────────────────────────────────────
+    # ── Score card ────────────────────────────────────────────────────
 
     @app.get("/api/models/<int:model_id>/card")
     def score_card(model_id):
@@ -296,7 +292,7 @@ def register_routes(app):
         finally:
             session.close()
 
-    # ── Admin ─────────────────────────────────────────────────────────────────
+    # ── Admin ──────────────────────────────────────────────────────
 
     @app.post("/admin/seed")
     def admin_seed():
@@ -311,7 +307,7 @@ def register_routes(app):
             return jsonify({"error": str(e)}), 500
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# ── Helpers ──────────────────────────────────────────────────────────
 
 def _update_streak(model: Model, ts: int):
     if model.last_played is None:
